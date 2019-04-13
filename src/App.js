@@ -1,28 +1,39 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
+import lodashGet from 'lodash.get';
+
+import { fetchBook } from './fetchBook';
+
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+const FIVE_SECONDS = 5000;
+
+function App() {
+  const [priceData, setPriceData] = React.useState(null);
+
+  React.useEffect(() => {
+    const now = Date.now();
+    const lastFetchTimestamp = lodashGet(priceData, 'timeStamp') || null;
+    const updateBook = () => {
+      fetchBook().then(data => setPriceData({
+        ...data,
+        timeStamp: Date.now(),
+      }));
+    };
+
+    if (lastFetchTimestamp && now - lastFetchTimestamp < FIVE_SECONDS) {
+      setTimeout(updateBook, FIVE_SECONDS);
+    } else {
+      updateBook();
+    }
+  }, [priceData]); 
+
+  console.log(priceData);
+
+  return (
+    <div>
+      Book
+    </div>
+  );
 }
 
 export default App;
