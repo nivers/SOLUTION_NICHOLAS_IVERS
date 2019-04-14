@@ -1,0 +1,15 @@
+.dataRow {
+  margin-bottom: 10px;
+}
+
+.dataRow:last-child {
+  margin-bottom: 0;
+}
+
+.askPriceCell {
+  color: red;
+}
+
+.bidPriceCell {
+  color: #20CC1D;
+}

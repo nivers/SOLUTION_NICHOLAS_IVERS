@@ -1,0 +1,17 @@
+.tableRow {
+  display: flex;
+  text-align: center;
+}
+
+.tableCell {
+  width: 33%;
+  padding:
+}
+
+.tableCell:first-child {
+  text-align: left;
+}
+
+.tableCell:last-child {
+  text-align: right;
+}

@@ -1,7 +1,9 @@
 import React from 'react';
 import lodashGet from 'lodash.get';
 
+import { BookTable, TABLE_TYPES } from './BookTable';
 import { fetchBook } from './fetchBook';
+import { TableRow } from './TableRow';
 
 import './App.css';
 
@@ -25,13 +27,42 @@ function App() {
     } else {
       updateBook();
     }
-  }, [priceData]); 
+  }, []);
+  //}, [priceData]); // TODO remove this
 
-  console.log(priceData);
+  // TODO, better loading handling
+  if (!priceData) {
+    return (
+      <div>
+        {'Loading . . .'}
+      </div>
+    );
+  }
+
+  const { asks, bids } = priceData || {};
+  console.log({ asks, bids });
 
   return (
-    <div>
-      Book
+    <div className="container">
+      <div className="header">
+        <div className="sectionContainer">
+          {'order book'}
+        </div>
+      </div>
+      <div className="sectionContainer">
+        <TableRow customClass="tableHeader" values={[
+          'Price (USDT)',
+          'Amount (BTC)',
+          'Total'
+        ]}>
+        </TableRow>
+        <BookTable items={asks.slice(0, 10)} type={TABLE_TYPES.ASK} />
+        <div className="askBidAverage">
+          {/* TODO make this dynamic */}
+          {'$3214.32'}
+        </div>
+        <BookTable items={bids.slice(0, 10)} type={TABLE_TYPES.BID} />
+      </div>
     </div>
   );
 }
