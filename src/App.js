@@ -34,11 +34,17 @@ function App() {
 
   const { asks, bids } = priceData || {};
   const sixLowestAsks = asks
-    .sort((a, b) => a.price < b.price ? 1 : -1)
-    .slice(0, 6);
+    .sort((a, b) => a.price < b.price ? -1 : 1)
+    .slice(0, 6)
+    .reverse();
   const sixHighestBids = bids
     .sort((a, b) => a.price < b.price ? 1 : -1)
     .slice(0, 6);
+
+  // mean of lowest ask and highest bid
+  const lowestAskPrice = sixLowestAsks[sixLowestAsks.length - 1].price;
+  const highestBidPrice = sixHighestBids[0].price;
+  const askBidAverage = (lowestAskPrice + highestBidPrice) / 2;
 
   return (
     <div className="container">
@@ -56,8 +62,7 @@ function App() {
         </TableRow>
         <BookTable items={sixLowestAsks} type={TABLE_TYPES.ASK} />
         <div className="askBidAverage">
-          {/* TODO make this dynamic */}
-          {'$3214.32'}
+          {`$${askBidAverage}`}
         </div>
         <BookTable items={sixHighestBids} type={TABLE_TYPES.BID} />
       </div>
