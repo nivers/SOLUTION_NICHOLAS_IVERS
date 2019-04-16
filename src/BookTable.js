@@ -35,7 +35,7 @@ export function BookTable(props) {
             values={[
               <PriceCell price={price.toFixed(2)} type={props.type} />,
               quantity,
-              total.toFixed(2)
+              `$${total.toFixed(2)}`
             ]}
           />
         );

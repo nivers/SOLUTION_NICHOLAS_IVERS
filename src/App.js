@@ -40,7 +40,12 @@ function App() {
   }
 
   const { asks, bids } = priceData || {};
-  console.log({ asks, bids });
+  const sixLowestAsks = asks
+    .sort((a, b) => a.price < b.price ? 1 : -1)
+    .slice(0, 6);
+  const sixHighestBids = bids
+    .sort((a, b) => a.price < b.price ? 1 : -1)
+    .slice(0, 6);
 
   return (
     <div className="container">
@@ -56,12 +61,12 @@ function App() {
           'Total'
         ]}>
         </TableRow>
-        <BookTable items={asks.slice(0, 10)} type={TABLE_TYPES.ASK} />
+        <BookTable items={sixLowestAsks} type={TABLE_TYPES.ASK} />
         <div className="askBidAverage">
           {/* TODO make this dynamic */}
           {'$3214.32'}
         </div>
-        <BookTable items={bids.slice(0, 10)} type={TABLE_TYPES.BID} />
+        <BookTable items={sixHighestBids} type={TABLE_TYPES.BID} />
       </div>
     </div>
   );
