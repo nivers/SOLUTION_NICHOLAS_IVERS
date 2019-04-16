@@ -1,5 +1,4 @@
 import React from 'react';
-import lodashGet from 'lodash.get';
 
 import { BookTable, TABLE_TYPES } from './BookTable';
 import { fetchBook } from './fetchBook';
@@ -12,23 +11,17 @@ const FIVE_SECONDS = 5000;
 function App() {
   const [priceData, setPriceData] = React.useState(null);
 
+  // fetch updated book on initialy render, then once every 5 seconds after the prior fetch is completed
   React.useEffect(() => {
-    const now = Date.now();
-    const lastFetchTimestamp = lodashGet(priceData, 'timeStamp') || null;
     const updateBook = () => {
-      fetchBook().then(data => setPriceData({
-        ...data,
-        timeStamp: Date.now(),
-      }));
-    };
-
-    if (lastFetchTimestamp && now - lastFetchTimestamp < FIVE_SECONDS) {
-      setTimeout(updateBook, FIVE_SECONDS);
-    } else {
-      updateBook();
-    }
+      fetchBook()
+        .then(setPriceData)
+        .finally(() => {
+          setTimeout(updateBook, FIVE_SECONDS);
+        });
+      };
+    updateBook();
   }, []);
-  //}, [priceData]); // TODO remove this
 
   // TODO, better loading handling
   if (!priceData) {
