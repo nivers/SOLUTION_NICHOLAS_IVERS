@@ -27,15 +27,16 @@ export function BookTable(props) {
       {props.items.map((item, i) => {
         const { price, quantity } = item;
         const total = price * quantity;
+        const formattedTotal = Number(total.toFixed(2)).toLocaleString('en');
 
         return (
           <TableRow
             customClass="dataRow"
-            key={`item-${i}`}
+            key={`item-${i}-${price}-${quantity}`}
             values={[
               <PriceCell price={price.toFixed(2)} type={props.type} />,
               quantity,
-              `$${total.toFixed(2)}`
+              `$${formattedTotal}`
             ]}
           />
         );
