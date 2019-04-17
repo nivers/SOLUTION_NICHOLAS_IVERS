@@ -41,10 +41,9 @@ function App() {
     .sort((a, b) => a.price < b.price ? 1 : -1)
     .slice(0, 6);
 
-  // mean of lowest ask and highest bid
   const lowestAskPrice = sixLowestAsks[sixLowestAsks.length - 1].price;
   const highestBidPrice = sixHighestBids[0].price;
-  const askBidAverage = (lowestAskPrice + highestBidPrice) / 2;
+  const askBidAverage = (lowestAskPrice + highestBidPrice) / 2; // mean of lowest ask and highest bid
 
   return (
     <div className="container">
