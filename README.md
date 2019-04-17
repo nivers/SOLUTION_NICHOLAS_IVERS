@@ -8,7 +8,7 @@ Navigate to root directory of app, and run `yarn install` (or `npm install`)
 
 From the root of the app, run `yarn start` (or `npm start`) and navigate to http://localhost:3000/
 
-## Best practive questions
+## Best practice questions
 
 **How would you improve your state management as you add new stateful components such as customer
 information and charts?**
