@@ -10,8 +10,8 @@ From the root of the app, run `yarn start` (or `npm start`) and navigate to http
 
 ## Best practive questions
 
-1. How would you improve your state management as you add new stateful components such as customer
-information and charts?
+**How would you improve your state management as you add new stateful components such as customer
+information and charts?**
 
 This really depends on how the app evolves. If we use something like graphql/relay, the state we have to manage is relatively simple (possibly just a user token or id), with user specific data being declaratively specified in individual components, and response data being managed by the relay store.
 
@@ -26,7 +26,7 @@ Assuming no server rendering, this would look something like this:
 - Some actions might cause the UI to need additional data from the server. At this point, if you're using redux, you'll want to use thunks or sagas to coordinate user actions and corresponding data fetching
 - Other actions might require writes to the server. Ideally, the response from these write requests will provide data to update the client's store and keep it in sync with server state. This would also be a use case for thunks and/or sagas.
 
-2. How would you organize your styles as your application grows?
+**How would you organize your styles as your application grows?**
 
 The technique I'm most familiar with is to couple components with their respective styles, which I am already doing. However there are a few things that would improve readability, enforce standardization, and limit the size of generated css assets:
 
